@@ -40,8 +40,8 @@ export function getHoldings(holdings = [], currency ="usd", orderBy = "market_ca
             }
         }).then((response) => {
             console.log("GetHoldings")
-            console.log(response)
-            if (response.state == 200) {
+            // console.log(response)
+            if (response.status == 200) {
                 // massage data
                 let myHoldings = response.data.map((item) =>{
                   // retrieve our current holdings -> current quantity
@@ -108,7 +108,7 @@ export function getCoinMarket(currency="usd", orderBy = "market_cap_desc", spark
         }).then((response) => {
             console.log("GetCoinMarket")
             console.log(response)
-            if (response.state == 200 ) {
+            if (response.status == 200 ) {
                 dispatch(getCoinMarketSuccess(response.data))
             } else {
                 dispatch(getCoinMarketFailure(response.data))

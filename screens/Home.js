@@ -11,6 +11,7 @@ import { getHoldings, getCoinMarket } from "../stores/market/marketActions";
 import { COLORS, SIZES, FONTS, dummyData, icons } from "../constants";
 
 import { MainLayout } from "./";
+import { BalanceInfo } from "../components";
 
 const Home = ({getHoldings, getCoinMarket, myHoldings, coins}) => {
 
@@ -21,12 +22,36 @@ const Home = ({getHoldings, getCoinMarket, myHoldings, coins}) => {
     }, [])
   )
 
+  let totalWallet = myHoldings.reduce((a, b) => a + (b.total || 0), 0)
+  let valueChange = myHoldings.reduce((a, b) => a + (b.holding_value_change_7d || 0), 0)
+  let percChange = valueChange / (totalWallet - valueChange) * 100
+
   function renderWalletInfoSection() {
-    return(
-      <View>
-        
+    return (
+      <View
+        style={{
+          paddingHorizontal: SIZES.padding,
+          borderBottomLeftRadius: 25,
+          borderBottomRightRadius: 25,
+          backgroundColor: COLORS.gray
+        }}
+      >
+
+        {/* balance info */}
+        <BalanceInfo 
+          title="Your Wallet"
+          displayAmount={totalWallet}
+          changePct={percChange}
+          containerStyle={{
+            marginTop: 20,
+            marginBottom: 10
+          }}
+        />
+
+        {/* buttons */}
+
       </View>
-    )
+    );
   }
 
     return (
