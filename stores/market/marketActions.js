@@ -45,7 +45,7 @@ export function getHoldings(holdings = [], currency ="usd", orderBy = "market_ca
                 // massage data
                 let myHoldings = response.data.map((item) =>{
                   // retrieve our current holdings -> current quantity
-                  let coin = holdings.find((a) => a.id == item.id);
+                  let coin = holdings.find(a => a.id == item.id);
                 //   price from 7 days ago
                 let price7d = item.current_price / (1 + item.price_change_percentage_7d_in_currency * 0.01)
 

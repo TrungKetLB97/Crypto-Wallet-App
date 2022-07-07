@@ -41,15 +41,15 @@ export default function BalanceInfo({title, displayAmount, containerStyle,change
                     style={{
                         width: 10,
                         height: 10,
-                        alignItems: 'center',
+                        alignSelf: 'center',
                         tintColor: (changePct > 0) ? COLORS.lightGreen : COLORS.red,
-                        transform: (changePct > 0) ? [{ rotate: '45deg' }] : [{ rotate: '125deg '}]
+                        transform: (changePct > 0) ? [{ rotate: '45deg' }] : [{ rotate: '125deg'}]
                     }}
                 />
             }
             <Text style={{
                 marginLeft: SIZES.base,
-                alignItems: 'flex-end',
+                alignSelf: 'flex-end',
                 color: (changePct == 0) ? COLORS.lightGray3 : (changePct > 0) ? COLORS.lightGreen : COLORS.red,
                 ...FONTS.h4
             }} >
@@ -57,7 +57,7 @@ export default function BalanceInfo({title, displayAmount, containerStyle,change
             </Text>
             <Text style={{
                 marginLeft: SIZES.radius,
-                alignItems: 'flex-end',
+                alignSelf: 'flex-end',
                 color: COLORS.lightGray3,
                 ...FONTS.h5
             }} >

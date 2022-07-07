@@ -11,7 +11,7 @@ import { getHoldings, getCoinMarket } from "../stores/market/marketActions";
 import { COLORS, SIZES, FONTS, dummyData, icons } from "../constants";
 
 import { MainLayout } from "./";
-import { BalanceInfo } from "../components";
+import { BalanceInfo, IconTextButton, Chart } from "../components";
 
 const Home = ({getHoldings, getCoinMarket, myHoldings, coins}) => {
 
@@ -33,23 +33,51 @@ const Home = ({getHoldings, getCoinMarket, myHoldings, coins}) => {
           paddingHorizontal: SIZES.padding,
           borderBottomLeftRadius: 25,
           borderBottomRightRadius: 25,
-          backgroundColor: COLORS.gray
+          backgroundColor: COLORS.gray,
         }}
       >
-
         {/* balance info */}
-        <BalanceInfo 
+        <BalanceInfo
           title="Your Wallet"
           displayAmount={totalWallet}
           changePct={percChange}
           containerStyle={{
             marginTop: 20,
-            marginBottom: 10
+            marginBottom: 10,
           }}
         />
 
         {/* buttons */}
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 15,
+            marginBottom: -15,
+            paddingHorizontal: SIZES.radius,
+          }}
+        >
+          <IconTextButton
+            label="transfer"
+            icon={icons.send}
+            containerStyle={{
+              flex: 1,
+              height: 40,
+              marginRight: SIZES.radius,
+            }}
+            onPress={() => console.log("Transfer")}
+          />
 
+          <IconTextButton
+            label="withdraw"
+            icon={icons.withdraw}
+            containerStyle={{
+              flex: 1,
+              height: 40,
+              marginRight: SIZES.radius,
+            }}
+            onPress={() => console.log("withdraw")}
+          />
+        </View>
       </View>
     );
   }
@@ -63,6 +91,12 @@ const Home = ({getHoldings, getCoinMarket, myHoldings, coins}) => {
           {renderWalletInfoSection()}
 
           {/* Chart */}
+          <Chart 
+            containerStyle={{
+              marginTop: SIZES.padding * 2
+            }}
+            chartPrices={coins[0]?.sparkline_in_7d?.price}
+          />
 
           {/* top cryptocurrency */}
 
