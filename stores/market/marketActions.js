@@ -83,12 +83,12 @@ export const getCoinMarketBegin = () => ({
     type: GET_COIN_MARKET_BEGIN
 })
 
-export const getCoinMarketSuccess = () => ({
+export const getCoinMarketSuccess = (coins) => ({
   type: GET_COIN_MARKET_SUCCESS,
   payload:{coins}
 });
 
-export const getCoinMarketFailure = () => ({
+export const getCoinMarketFailure = (error) => ({
   type: GET_COIN_MARKET_FAILURE,
   payload: {error}
 });
@@ -108,7 +108,7 @@ export function getCoinMarket(currency="usd", orderBy = "market_cap_desc", spark
         }).then((response) => {
             console.log("GetCoinMarket")
             console.log(response)
-            if (response.status == 200 ) {
+            if (response.state == 200 ) {
                 dispatch(getCoinMarketSuccess(response.data))
             } else {
                 dispatch(getCoinMarketFailure(response.data))
