@@ -19,7 +19,8 @@ export default function BalanceInfo({title, displayAmount, containerStyle,change
         <View
             style={{
                 flexDirection: 'row',
-                alignItems: 'flex-end'
+                alignItems: 'flex-end',
+                
             }}
         >
             <Text style={{...FONTS.h3, color: COLORS.lightGray3}} >$</Text>
@@ -32,7 +33,8 @@ export default function BalanceInfo({title, displayAmount, containerStyle,change
         <View
             style={{
                 flexDirection: 'row',
-                alignItems: 'flex-end'
+                alignItems: 'flex-end',
+                
             }}
         >
             {changePct != 0 &&

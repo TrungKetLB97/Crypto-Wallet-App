@@ -108,7 +108,7 @@ export function getCoinMarket(currency="usd", orderBy = "market_cap_desc", spark
         }).then((response) => {
             console.log("GetCoinMarket")
             console.log(response)
-            if (response.state == 200 ) {
+            if (response.status == 200 ) {
                 dispatch(getCoinMarketSuccess(response.data))
             } else {
                 dispatch(getCoinMarketFailure(response.data))

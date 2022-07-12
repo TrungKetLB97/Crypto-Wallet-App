@@ -9,7 +9,7 @@ import { setTradeModalVisibility } from "../stores/tab/tabActions";
 
 import { Home, Portfolio, Market, Profile } from "../screens"
 import { TabIcon } from "../components";
-import { COLORS, icons } from "../constants"
+import { COLORS, icons, SIZES } from "../constants"
 
 const Tab = createBottomTabNavigator()
 
@@ -41,7 +41,7 @@ const Tabs = ({setTradeModalVisibility, isTradeModalVisible}) => {
           style: {
             backgroundColor: COLORS.primary,
             borderTopColor: "transparent",
-            height: 80,
+            height: 110,
           },
         }}
       >
