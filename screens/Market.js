@@ -28,13 +28,65 @@ const marketTabs = constants.marketTabs.map((marketTab) => ({
   ref: React.createRef(),
 }));
 
-const Tabs = () => {
+const TabIndicator = ({measureLayout, scrollX}) => {
+
+  const inputRange = marketTabs.map((_, i) => i * SIZES.width)
+
+  const translateX = scrollX.interpolate({
+    inputRange,
+    outputRange: measureLayout.map(measure => measure.x)
+  })
+
+  return(
+    <Animated.View 
+      style={{
+        position: 'absolute',
+        left: 0,
+        height: "100%",
+        width: (SIZES.width - (SIZES.radius * 2)) /2,
+        borderRadius: SIZES.radius,
+        backgroundColor: COLORS.lightGray3,
+        transform: [{
+          translateX
+        }]
+      }}
+    />
+  )
+}
+
+const Tabs = ({scrollX, onMarkettabPress}) => {
+
+  const [measureLayout, setMeasureLayout] = React.useState([])
+  const containerRef = React.useRef()
+
+  React.useEffect (() => {
+    let ml = []
+
+    marketTabs.forEach(marketTab => {
+      marketTab?.ref?.current?.measureLayout(
+        containerRef.current,
+        (x, y, width, height) => {
+          ml.push({
+            x, y, width, height
+          })
+          if (ml.length === marketTabs.length) {
+            setMeasureLayout(ml)
+          }
+        }
+      )
+    })
+  }, [containerRef.current])
+
   return (
     <View
+      ref={containerRef}
       style={{
         flexDirection: "row",
       }}
     >
+      {/* tab indicator */}
+      {measureLayout.length > 0 && <TabIndicator measureLayout = {measureLayout} scrollX={scrollX} />}
+
       {/* tabs */}
       {marketTabs.map((item, index) => {
         return (
@@ -43,7 +95,7 @@ const Tabs = () => {
             style={{
               flex: 1,
             }}
-            //onPress
+            onPress={() => onMarkettabPress(index)}
           >
             <View
               style={{
@@ -66,6 +118,13 @@ const Tabs = () => {
 
 const Market = ({ getCoinMarket, coins }) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
+  const marketTabScrollViewRef = React.useRef()
+
+  const onMarkettabPress = React.useCallback(marketTabIndex => {
+    marketTabScrollViewRef?.current?.scrollToOffset({
+      offset: marketTabIndex * SIZES.width
+    })
+  })
 
   React.useCallback(() => {
     getCoinMarket();
@@ -81,7 +140,10 @@ const Market = ({ getCoinMarket, coins }) => {
           backgroundColor: COLORS.gray,
         }}
       >
-        <Tabs />
+        <Tabs 
+          scrollX={scrollX}
+          onMarkettabPress={onMarkettabPress}
+        />
       </View>
     );
   }
@@ -117,6 +179,7 @@ const Market = ({ getCoinMarket, coins }) => {
   function renderList() {
     return (
       <Animated.FlatList
+        ref={ marketTabScrollViewRef }
         data={marketTabs}
         contentContainerStyle={{
           marginTop: SIZES.padding,
