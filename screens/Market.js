@@ -45,7 +45,7 @@ const TabIndicator = ({measureLayout, scrollX}) => {
         height: "100%",
         width: (SIZES.width - (SIZES.radius * 2)) /2,
         borderRadius: SIZES.radius,
-        backgroundColor: COLORS.lightGray3,
+        backgroundColor: COLORS.lightGray,
         transform: [{
           translateX
         }]
@@ -54,7 +54,7 @@ const TabIndicator = ({measureLayout, scrollX}) => {
   )
 }
 
-const Tabs = ({scrollX, onMarkettabPress}) => {
+const Tabs = ({scrollX, onMarketTabPress}) => {
 
   const [measureLayout, setMeasureLayout] = React.useState([])
   const containerRef = React.useRef()
@@ -95,7 +95,7 @@ const Tabs = ({scrollX, onMarkettabPress}) => {
             style={{
               flex: 1,
             }}
-            onPress={() => onMarkettabPress(index)}
+            onPress={() => onMarketTabPress(index)}
           >
             <View
               style={{
@@ -120,7 +120,7 @@ const Market = ({ getCoinMarket, coins }) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const marketTabScrollViewRef = React.useRef()
 
-  const onMarkettabPress = React.useCallback(marketTabIndex => {
+  const onMarketTabPress = React.useCallback(marketTabIndex => {
     marketTabScrollViewRef?.current?.scrollToOffset({
       offset: marketTabIndex * SIZES.width
     })
@@ -142,7 +142,7 @@ const Market = ({ getCoinMarket, coins }) => {
       >
         <Tabs 
           scrollX={scrollX}
-          onMarkettabPress={onMarkettabPress}
+          onMarketTabPress={onMarketTabPress}
         />
       </View>
     );
@@ -270,7 +270,7 @@ const Market = ({ getCoinMarket, coins }) => {
                               },
                             ],
                           }}
-                          width={100}
+                          width={120}
                           height={60}
                           chartConfig={{
                             color: () => priceColor,
